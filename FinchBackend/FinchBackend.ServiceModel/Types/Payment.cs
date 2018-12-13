@@ -1,15 +1,10 @@
 ﻿using ServiceStack.DataAnnotations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinchBackend.ServiceModel.Types
 {
     [DataContract]
-    public class Payment
+    public class Payment : BaseEntity
     {
         [Index(Unique = true)]
         [DataMember(Name = "titleNumber")]
@@ -38,11 +33,11 @@ namespace FinchBackend.ServiceModel.Types
         public double Value { get; set; }
 
         [Required]
-        [DataMember(Name = "emissionDateTimestamp")]
+        [DataMember(Name = "emissionTimestamp")]
         public long EmissionDateTimestamp { get; set; }
 
         [Required]
-        [DataMember(Name = "expirationDateTimestamp")]
+        [DataMember(Name = "expirationTimestamp")]
         public long ExpirationDateTimestamp { get; set; }
 
         [DataMember(Name = "numberOfInstallments")]

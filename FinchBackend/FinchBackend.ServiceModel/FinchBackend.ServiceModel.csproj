@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="BaseRequest.cs" />
     <Compile Include="GetProtest.cs" />
+    <Compile Include="Types\BaseEntity.cs" />
     <Compile Include="Types\Debtor.cs" />
     <Compile Include="Types\Payment.cs" />
     <Compile Include="Types\PaymentProtest.cs" />

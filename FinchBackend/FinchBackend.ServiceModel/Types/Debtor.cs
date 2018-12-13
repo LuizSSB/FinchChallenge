@@ -1,15 +1,10 @@
 ﻿using ServiceStack.DataAnnotations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinchBackend.ServiceModel.Types
 {
     [DataContract]
-    public class Debtor
+    public class Debtor : BaseEntity
     {
         [Required]
         [Index(Unique = true)]

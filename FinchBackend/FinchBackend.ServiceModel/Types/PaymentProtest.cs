@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace FinchBackend.ServiceModel.Types
 {
     [DataContract]
-    public class PaymentProtest
+    public class PaymentProtest : BaseEntity
     {
         [Required]
         [Index(Unique = true)]
