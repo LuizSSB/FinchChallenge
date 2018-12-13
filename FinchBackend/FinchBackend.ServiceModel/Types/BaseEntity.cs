@@ -3,7 +3,7 @@
 namespace FinchBackend.ServiceModel.Types
 {
     [DataContract]
-    public class BaseEntity 
+    public abstract class BaseEntity 
     {
         [DataMember(Name = "ownerId")]
         public string OwnerId { get; set; }
