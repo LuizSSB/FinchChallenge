@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace FinchBackend.ServiceInterface
 {
-    // [Authenticated]
+    [Authenticate]
     public class SearchServices : Service
     {
         public IDbConnectionFactory DbConnection { get; set; }

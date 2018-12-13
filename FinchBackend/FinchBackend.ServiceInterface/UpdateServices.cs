@@ -2,15 +2,10 @@
 using ServiceStack;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinchBackend.ServiceInterface
 {
-    // [Authenticated]
+    [Authenticate]
     public class UpdateServices : Service
     {
         public IDbConnectionFactory DbConnection { get; set; }
@@ -23,13 +18,13 @@ namespace FinchBackend.ServiceInterface
                 {
                     if (request.Protest.Payment.Debtor != null)
                     {
-                        db.InsertOrReplace(request.Protest.Payment.Debtor);
+                        db.InsertOrReplace(request.Protest.Payment.Debtor, this);
                     }
 
-                    db.InsertOrReplace(request.Protest.Payment);
+                    db.InsertOrReplace(request.Protest.Payment, this);
                 }
 
-                db.Update(request.Protest);
+                db.Update(request.Protest.Prepare(this));
             }
         }
 

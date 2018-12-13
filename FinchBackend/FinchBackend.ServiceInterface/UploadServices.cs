@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FinchBackend.ServiceInterface
 {
-    // [Authenticate]
+    [Authenticate]
     public class UploadServices : Service
     {
         public IDbConnectionFactory DbConnection { get; set; }
@@ -30,9 +30,9 @@ namespace FinchBackend.ServiceInterface
             {
                 foreach (var protest in transformedData)
                 {
-                    db.InsertOrReplace(protest.Payment.Debtor);
-                    db.InsertOrReplace(protest.Payment);
-                    db.InsertOrReplace(protest);
+                    db.InsertOrReplace(protest.Payment.Debtor, this);
+                    db.InsertOrReplace(protest.Payment, this);
+                    db.InsertOrReplace(protest, this);
                 }
             }
         }

@@ -1,4 +1,5 @@
-﻿using ServiceStack.OrmLite;
+﻿using ServiceStack;
+using ServiceStack.OrmLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,40 @@ namespace FinchBackend.ServiceInterface
 {
     public static class Extensions
     {
-        public static void InsertOrReplace<T>(this System.Data.IDbConnection db, T poco)
+        public static long InsertOrReplace<T>(this System.Data.IDbConnection db, T poco, Service service)
+            where T : ServiceModel.Types.BaseEntity
         {
             try
             {
-                db.Insert(poco);
+                return db.Insert(poco.Prepare(service));
             }
             catch
             {
-                db.Update(poco);
+                return db.Update(poco.Prepare(service));
             }
+        }
+
+        static long UnixTimeNow()
+        {
+            var timeSpan = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0));
+            return (long) timeSpan.TotalSeconds;
+        }
+
+        public static T Prepare<T>(this T poco, Service service) where T : ServiceModel.Types.BaseEntity
+        {
+            var session = service.GetSession();
+            poco.OwnerId = session.UserAuthId;
+            
+            if (poco.CreatedTimestamp.HasValue)
+            {
+                poco.UpdatedTimestamp = UnixTimeNow();
+            }
+            else
+            {
+                poco.CreatedTimestamp = UnixTimeNow();
+            }
+
+            return poco;
         }
     }
 }
